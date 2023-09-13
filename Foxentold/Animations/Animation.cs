@@ -15,16 +15,18 @@ namespace Foxentold.Animations
         private short timesPlayed = 0;
         private int currentFrame = 0;
         private Vector2 currentPosition;
+        protected short version;
         //pixel per seconds
-        protected int speed=2;
+        protected int speed=1;
         public bool IsPlaying { get => isPlaying; }
         public short TimesPlayed { get => timesPlayed; }
 
         private List<GameItem> frames = new List<GameItem>();
         protected List<Vector2> movement = new List<Vector2>();
 
-        public Animation()
+        public Animation(short version)
         {
+            this.version = version;
             this.DefineAnimation();
         }
         protected void AddFrame(GameItem frame)
@@ -74,20 +76,35 @@ namespace Foxentold.Animations
 
             // Calculate the resulting vector for one second
             Vector2 resultingVector = unitVector * speed;
+            resultingVector.X = (float)Math.Ceiling(resultingVector.X);
+            resultingVector.Y = (float)Math.Ceiling(resultingVector.Y);
 
             //Remove vector empty
             if (currentPosition.X == this.movement[0].X && currentPosition.Y == this.movement[0].Y)
             {
-                renderedFrame.Position = movement[0];
-                this.currentPosition = movement[0];
-                this.movement.Remove(this.movement[0]);   
+                //renderedFrame.Position = movement[0];
+               // this.currentPosition = movement[0];
+                this.movement.Remove(this.movement[0]);
+                
             }
             else
             {
                 renderedFrame.applyVector(resultingVector);
+                Vector2 previousPos = currentPosition;
                 this.currentPosition = renderedFrame.Position;
+                if ((currentPosition.X > movement[0].X && previousPos.X < movement[0].X) ||
+                    (currentPosition.X < movement[0].X && previousPos.X > movement[0].X))
+                {
+                    this.currentPosition.X = movement[0].X;
+                }
+                if ((currentPosition.Y > movement[0].Y && previousPos.Y < movement[0].Y) ||
+                    (currentPosition.Y < movement[0].Y && previousPos.Y > movement[0].Y))
+                {
+                    this.currentPosition.X = movement[0].Y;
+                }
             }
-                
+            
+            
             
             //Apply result
             

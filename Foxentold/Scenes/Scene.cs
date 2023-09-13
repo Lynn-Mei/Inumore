@@ -50,7 +50,7 @@ namespace Foxentold.Scenes
                 {
                     animatedDrawables.Add(animation.Update(gameTime));
                 }
-                else
+                else if (animation.TimesPlayed > 0)
                 {
                     animatedDrawables.Add(animation.GetStopedFrame());
                 }
