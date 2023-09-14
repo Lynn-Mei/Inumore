@@ -50,23 +50,43 @@ namespace Foxentold.Animations
 
         public GameItem Update(GameTime gametime)
         {
+            if (this.checkMovementEnd(currentPosition))
+                this.movement.Remove(this.movement[0]);
 
             //Set new frame
-            GameItem renderedFrame = frames[currentFrame];
-            renderedFrame.Position = this.currentPosition;
-            if(frames.Count-1 == currentFrame)
-            {
-                currentFrame = 0;
+            GameItem renderedFrame = this.setNewFrame();
+            if (this.movement.Count > 0) {     
+                //Get new Position according to vector
+                Vector2 newPosition = this.getResultingVector(renderedFrame.Position, this.movement[0]);
+                //Apply new position
+                renderedFrame.applyVector(newPosition);
+                this.currentPosition = renderedFrame.Position;
             }
             else
             {
-                currentFrame++;
+                this.isPlaying = false;
             }
+                
+            return renderedFrame;
+        }
 
-            //Get the amount of movement according to speed
-            int momentum = Convert.ToInt32(gametime.ElapsedGameTime.TotalMilliseconds * 1000);
+        private GameItem setNewFrame()
+        {
+            //Get the frame
+            GameItem newFrame = frames[currentFrame];
+            //Set it's position to the animation's position
+            newFrame.Position = this.currentPosition;
+            //Set counter for the next iteration or reset if all frames are looped over
+            currentFrame++;
+            if (frames.Count == currentFrame)
+                currentFrame = 0;
+            
+            return newFrame;
+        }
 
-            Vector2 displacementVector = this.movement[0] - renderedFrame.Position;
+        private Vector2 getResultingVector(Vector2 currentPosition, Vector2 movement)
+        {
+            Vector2 displacementVector = movement - currentPosition;
 
             // Calculate the length (magnitude) of the displacement vector
             float distance = displacementVector.Length();
@@ -76,45 +96,64 @@ namespace Foxentold.Animations
 
             // Calculate the resulting vector for one second
             Vector2 resultingVector = unitVector * speed;
-            resultingVector.X = (float)Math.Ceiling(resultingVector.X);
-            resultingVector.Y = (float)Math.Ceiling(resultingVector.Y);
 
-            //Remove vector empty
-            if (currentPosition.X == this.movement[0].X && currentPosition.Y == this.movement[0].Y)
+            //Avoiding going past the destination point (X)
+            
+
+            //Upper ceiling to avoid movement cancelation
+            if(resultingVector.X > 0)
             {
-                //renderedFrame.Position = movement[0];
-               // this.currentPosition = movement[0];
-                this.movement.Remove(this.movement[0]);
-                
+                resultingVector.X = (float)Math.Ceiling(resultingVector.X);
             }
             else
             {
-                renderedFrame.applyVector(resultingVector);
-                Vector2 previousPos = currentPosition;
-                this.currentPosition = renderedFrame.Position;
-                if ((currentPosition.X > movement[0].X && previousPos.X < movement[0].X) ||
-                    (currentPosition.X < movement[0].X && previousPos.X > movement[0].X))
-                {
-                    this.currentPosition.X = movement[0].X;
-                }
-                if ((currentPosition.Y > movement[0].Y && previousPos.Y < movement[0].Y) ||
-                    (currentPosition.Y < movement[0].Y && previousPos.Y > movement[0].Y))
-                {
-                    this.currentPosition.X = movement[0].Y;
-                }
+                resultingVector.X = (float)Math.Floor(resultingVector.X);
             }
-            
-            
-            
-            //Apply result
-            
-            
+            if (resultingVector.Y > 0)
+            {
+                resultingVector.Y = (float)Math.Ceiling(resultingVector.Y);
+            }
+            else
+            {
+                resultingVector.Y = (float)Math.Floor(resultingVector.Y);
+            }
+            int newX = (int)currentPosition.X + (int)resultingVector.X;
+            int newY = (int)currentPosition.Y + (int)resultingVector.Y;
 
-            //Check if animation is done
-            if (this.movement.Count <= 0)
-                this.isPlaying = false;
+            int start = (int)currentPosition.X;
+            int stop = (int)this.movement[0].X;
+            if((int)currentPosition.X > this.movement[0].X)
+            {
+                stop = (int)currentPosition.X;
+                start = (int)this.movement[0].X;
+            }
 
-            return renderedFrame;
+            if (Enumerable.Range(start, stop).Contains(newX))
+            {
+                resultingVector.X = this.movement[0].X-currentPosition.X;
+            }
+
+            start = (int)currentPosition.Y;
+            stop = (int)this.movement[0].Y;
+            if ((int)currentPosition.Y > this.movement[0].Y)
+            {
+                stop = (int)currentPosition.Y;
+                start = (int)this.movement[0].Y;
+            }
+            if (Enumerable.Range(start, stop).Contains(newY))
+            {
+                resultingVector.Y = this.movement[0].Y-currentPosition.Y;
+            }
+
+            return resultingVector;
+        }
+
+        private bool checkMovementEnd(Vector2 newPosition)
+        {
+            bool res = false;
+            if (newPosition.X == this.movement[0].X && newPosition.Y == this.movement[0].Y)
+                res = true;
+            return res;
         }
 
 
