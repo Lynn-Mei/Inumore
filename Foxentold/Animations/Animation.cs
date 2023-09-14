@@ -128,7 +128,7 @@ namespace Foxentold.Animations
                 start = (int)this.movement[0].X;
             }
 
-            if (Enumerable.Range(start, stop).Contains(newX))
+            if (!Enumerable.Range(start, stop).Contains(newX))
             {
                 resultingVector.X = this.movement[0].X-currentPosition.X;
             }
@@ -140,7 +140,7 @@ namespace Foxentold.Animations
                 stop = (int)currentPosition.Y;
                 start = (int)this.movement[0].Y;
             }
-            if (Enumerable.Range(start, stop).Contains(newY))
+            if (!Enumerable.Range(start, stop).Contains(newY))
             {
                 resultingVector.Y = this.movement[0].Y-currentPosition.Y;
             }

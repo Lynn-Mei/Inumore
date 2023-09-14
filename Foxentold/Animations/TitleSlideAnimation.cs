@@ -22,7 +22,7 @@ namespace Foxentold.Animations
         }
         protected override void DefineAnimation()
         {
-            this.speed = 2;
+            this.speed = 10;
             if (this.version == 1)
             {
                 this.movement.Add(new Microsoft.Xna.Framework.Vector2(200, 150));
@@ -33,13 +33,13 @@ namespace Foxentold.Animations
             }
             else
             {
-                this.speed = 10;
+                this.speed = 18;
                 int centerX = 600; // X-coordinate of the circle's center
                 int centerY = 250; // Y-coordinate of the circle's center
                 int radius = 200; // Radius of the circle
 
                 List<(double, double)> coo = new List<(double, double)>();
-                for (int i = 0; i <= 360; i++)
+                for (int i = 0; i <= 360; i+=5)
                 {
                     int x = (int)(centerX + radius * Math.Cos(2*3.14*i/360));
                     int y = (int)(centerY + radius * Math.Sin(2*3.14*i/360));
