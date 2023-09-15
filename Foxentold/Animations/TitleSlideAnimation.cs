@@ -33,20 +33,29 @@ namespace Foxentold.Animations
             }
             else
             {
-                this.speed = 18;
-                int centerX = 600; // X-coordinate of the circle's center
-                int centerY = 250; // Y-coordinate of the circle's center
-                int radius = 200; // Radius of the circle
-
+                this.speed = 15;
+                int centerX = 300; // X-coordinate of the circle's center
+                int centerY = 300; // Y-coordinate of the circle's center
+                const int radius = 300; // Radius of the circle
+                
                 List<(double, double)> coo = new List<(double, double)>();
-                for (int i = 0; i <= 360; i+=5)
+                //first circle
+                for (int i = 180; i <= 360; i += 5)
                 {
-                    int x = (int)(centerX + radius * Math.Cos(2*3.14*i/360));
-                    int y = (int)(centerY + radius * Math.Sin(2*3.14*i/360));
+                    int x = (int)(centerX + radius * Math.Cos(2 * 3.14 * i / 360));
+                    int y = (int)(centerY + radius * Math.Sin(2 * 3.14 * i / 360));
                     coo.Add((x, y));
                     this.movement.Add(new Vector2((int)x, (int)y));
                 }
-
+                const int newRadius = 200;
+                centerX = (int)this.movement[this.movement.Count-1].X - (-1 * (newRadius - radius));
+                for (int i = 90; i <= 270; i += 5)
+                {
+                    int x = (int)(centerX + newRadius * Math.Cos(2 * 3.14 * i / 360));
+                    int y = (int)(centerY + newRadius * Math.Sin(2 * 3.14 * i / 360));
+                    coo.Add((x, y));
+                    this.movement.Add(new Vector2((int)x, (int)y));
+                }
 
                 //this.movement.Add(new Microsoft.Xna.Framework.Vector2(500, 700));
 

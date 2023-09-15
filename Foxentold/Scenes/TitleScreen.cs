@@ -13,7 +13,7 @@ namespace Foxentold.Scenes
         
         public TitleScreen(int x, int y) : base(x, y)
         {
-            LargeSprite inu = new LargeSprite(this, 800, 200, "images/inu");
+            LargeSprite inu = new LargeSprite(this, 300, 500, "images/inu");
             //inu.CenterXAxis();
             //this.drawable.Add(inu);
 
