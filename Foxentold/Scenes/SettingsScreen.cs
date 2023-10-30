@@ -1,4 +1,5 @@
 ﻿using Foxentold.Enums;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,11 @@ namespace Foxentold.Scenes
     {
         public SettingsScreen(int x, int y) : base(x, y)
         {
+        }
+
+        public override void Play()
+        {
+            
         }
 
         public void Return()
@@ -28,7 +34,7 @@ namespace Foxentold.Scenes
 
         }
 
-        protected override void AbstractedUpdate()
+        protected override void AbstractedUpdate(GameTime gameTime)
         {
             throw new NotImplementedException();
         }

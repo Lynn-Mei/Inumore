@@ -38,7 +38,9 @@ namespace Foxentold.Scenes
             }
         }
 
-        protected abstract void AbstractedUpdate();
+        protected abstract void AbstractedUpdate(GameTime gameTime);
+
+        public abstract void Play();
 
         public void Update(GameTime gameTime)
         {
@@ -55,7 +57,7 @@ namespace Foxentold.Scenes
                     animatedDrawables.Add(animation.GetStopedFrame());
                 }
             }
-            this.AbstractedUpdate();
+            this.AbstractedUpdate(gameTime);
         }
     }
 }

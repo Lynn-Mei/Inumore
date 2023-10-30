@@ -30,13 +30,13 @@ namespace Foxentold
             // TODO: Add your initialization logic here
             this._settings = new Settings(Enums.LanguageCode.EN);
             this._scene = new TitleScreen(0,0);
+            this._scene.Play();
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             SpriteFont spriteFont = Content.Load<SpriteFont>("Default");
-            
             SpriteBatchManager.Initialize(new SpriteBatch(GraphicsDevice), spriteFont);
             
         }
