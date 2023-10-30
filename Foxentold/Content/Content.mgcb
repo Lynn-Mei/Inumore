@@ -56,3 +56,9 @@
 /processorParam:TextureFormat=Color
 /build:images/logo.png
 
+#begin music/theme-song.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/theme-song.mp3
+
