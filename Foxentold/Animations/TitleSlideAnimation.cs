@@ -23,7 +23,8 @@ namespace Foxentold.Animations
         protected override void DefineAnimation()
         {
             this.speed = 10;
-            if (this.version == 1)
+            if (this.version == 0) { }
+            else if (this.version == 1)
             {
                 this.movement.Add(new Microsoft.Xna.Framework.Vector2(200, 150));
             }

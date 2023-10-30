@@ -50,8 +50,15 @@ namespace Foxentold.Animations
 
         public GameItem Update(GameTime gametime)
         {
-            if (this.checkMovementEnd(currentPosition))
-                this.movement.Remove(this.movement[0]);
+            if(this.movement.Count == 0)
+            {
+                this.isPlaying = false;
+            }
+            else {
+                if (this.checkMovementEnd(currentPosition))
+                    this.movement.Remove(this.movement[0]);
+            }
+
 
             //Set new frame
             GameItem renderedFrame = this.setNewFrame();
@@ -151,8 +158,14 @@ namespace Foxentold.Animations
         private bool checkMovementEnd(Vector2 newPosition)
         {
             bool res = false;
-            if (newPosition.X == this.movement[0].X && newPosition.Y == this.movement[0].Y)
+            if (this.movement.Count > 0) { 
+                if (newPosition.X == this.movement[0].X && newPosition.Y == this.movement[0].Y)
+                    res = true;
+            }
+            else
+            {
                 res = true;
+            }
             return res;
         }
 

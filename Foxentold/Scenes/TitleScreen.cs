@@ -1,9 +1,14 @@
 ﻿using Foxentold.Animations;
 using Foxentold.Drawables;
+using Foxentold.Links;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Foxentold.Scenes
@@ -13,13 +18,14 @@ namespace Foxentold.Scenes
         
         public TitleScreen(int x, int y) : base(x, y)
         {
+            Song themeSong = StaticContentManager.Load<Song>("music/theme-song");
+            MediaPlayer.Play(themeSong);
+
+            this.drawable.Add(new DisplayedText(this, 500, 350, "* Yubi-Soft *", Color.White, 42));
+
             LargeSprite inu = new LargeSprite(this, 300, 500, "images/inu");
-            //inu.CenterXAxis();
-            //this.drawable.Add(inu);
 
             LargeSprite logo = new LargeSprite(this, -900, 150, "images/logo");
-            //logo.CenterXAxis();
-            //this.drawable.Add(logo);
 
             LargeSprite subtitle = new LargeSprite(this, 1500, 250, "images/koroneraiser");
 
@@ -31,7 +37,6 @@ namespace Foxentold.Scenes
             List<GameItem> items = new List<GameItem>();
             items.Add(inu);
             slideAnimation2.setFrames(items);
-            slideAnimation2.Play();
             this.animations.Add(slideAnimation2);
 
             TitleSlideAnimation title = new TitleSlideAnimation(1);
@@ -49,8 +54,13 @@ namespace Foxentold.Scenes
 
         }
 
-        protected override void AbstractedUpdate()
+        protected override void AbstractedUpdate(GameTime gameTime)
         {
+            if(gameTime.TotalGameTime >= TimeSpan.FromMilliseconds(3000) && this.animations[0].TimesPlayed == 0) { 
+            
+                this.ClearBoard();
+                this.animations[0].Play();
+            }
             if (!this.animations[0].IsPlaying && this.animations[0].TimesPlayed > this.animations[1].TimesPlayed)
             {
                 this.animations[1].Play();
@@ -59,6 +69,12 @@ namespace Foxentold.Scenes
             {
                 this.animations[2].Play();
             }
+            
+        }
+
+        private void ClearBoard()
+        {
+            this.drawable = new List<GameItem>();
         }
 
         public void Settings()
@@ -66,9 +82,9 @@ namespace Foxentold.Scenes
 
         }
 
-        public void Play()
+        public override void Play()
         {
-
+            
         }
 
         public void PlayAnimation()
