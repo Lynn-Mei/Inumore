@@ -1,6 +1,7 @@
 ﻿using Foxentold.Animations;
 using Foxentold.Drawables;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace Foxentold.Scenes
     {
         protected int x;
         protected int y;
+        protected Song bgm;
         protected List<GameItem> drawable = new List<GameItem>();
         protected List<GameItem> animatedDrawables = new List<GameItem>();
         protected List<Animation> animations = new List<Animation>();
@@ -40,7 +42,6 @@ namespace Foxentold.Scenes
 
         protected abstract void AbstractedUpdate(GameTime gameTime);
 
-        public abstract void Play();
 
         public void Update(GameTime gameTime)
         {

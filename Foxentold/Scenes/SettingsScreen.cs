@@ -14,11 +14,6 @@ namespace Foxentold.Scenes
         {
         }
 
-        public override void Play()
-        {
-            
-        }
-
         public void Return()
         {
 
