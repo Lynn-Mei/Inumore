@@ -1,5 +1,6 @@
 ﻿using Foxentold.Animations;
 using Foxentold.Drawables;
+using Foxentold.Drawables.BitArrow;
 using Foxentold.Links;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
@@ -49,6 +50,7 @@ namespace Foxentold.Scenes
             this.addToAnimations(3, inu);
             this.addToAnimations(1, logo);
             this.addToAnimations(2, subtitle);
+            this.setReactions();
         }
 
         protected override void AbstractedUpdate(GameTime gameTime)
@@ -57,14 +59,6 @@ namespace Foxentold.Scenes
             { 
                 this.drawable.Clear();
                 this.animations[0].Play();
-            }
-            if (!this.animations[0].IsPlaying && this.animations[0].TimesPlayed > this.animations[1].TimesPlayed)
-            {
-                this.animations[1].Play();
-            }
-            if(!this.animations[1].IsPlaying && this.animations[1].TimesPlayed > this.animations[2].TimesPlayed)
-            {
-                this.animations[2].Play();
             }
             if (bgm.IsDisposed)
             {
@@ -84,6 +78,22 @@ namespace Foxentold.Scenes
             items.Add(item);
             slideAnimation.setFrames(items);
             this.animations.Add(slideAnimation);
+        }
+
+        private void setReactions()
+        {
+            this.animations[0].Reaction = this.animations[1].Play;
+            this.animations[1].Reaction = this.animations[2].Play;
+            this.animations[2].Reaction = this.addButtons;
+        }
+
+        private void addButtons()
+        {
+            Dictionary<string, Action> actions = new Dictionary<string, Action>();
+            actions["Play"] = this.Play;
+            actions["Settings"] = this.Settings;
+            BitArrowBtnGroup group = new BitArrowBtnGroup(this, 600, 450, actions, Color.White, 35, 0 ,50);
+            this.drawable.Add(group);
         }
 
         /// <summary>

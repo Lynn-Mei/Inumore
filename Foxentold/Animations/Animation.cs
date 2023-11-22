@@ -15,6 +15,7 @@ namespace Foxentold.Animations
         private short timesPlayed = 0;
         private int currentFrame = 0;
         private Vector2 currentPosition;
+        private Action reaction;
         protected short version;
         //pixel per seconds
         protected int speed=1;
@@ -23,6 +24,8 @@ namespace Foxentold.Animations
 
         private List<GameItem> frames = new List<GameItem>();
         protected List<Vector2> movement = new List<Vector2>();
+
+        public Action Reaction { set=> reaction = value; }
 
         /// <summary>
         /// Initializes the animation
@@ -33,6 +36,18 @@ namespace Foxentold.Animations
             this.version = version;
             this.DefineAnimation();
         }
+
+        /// <summary>
+        /// Initializes the animation
+        /// </summary>
+        /// <param name="version">the version id of the animation</param>
+        public Animation(short version, Action reaction)
+        {
+            this.version = version;
+            this.reaction = reaction;
+            this.DefineAnimation();
+        }
+
         /// <summary>
         /// Adds a Gameitem as a frame to the animation
         /// </summary>
@@ -75,8 +90,10 @@ namespace Foxentold.Animations
         /// <returns>the frame to be rendered</returns>
         public GameItem Update(GameTime gametime)
         {
-            if(this.movement.Count == 0)
+            if(this.movement.Count == 0) { 
                 this.isPlaying = false;
+                this.reaction.Invoke();
+            }
             else if (this.checkMovementEnd(currentPosition))
                 this.movement.Remove(this.movement[0]);
             //Set new frame
@@ -91,6 +108,7 @@ namespace Foxentold.Animations
             else
             {
                 this.isPlaying = false;
+                this.reaction.Invoke();
             }
                 
             return renderedFrame;
