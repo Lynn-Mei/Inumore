@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace Foxentold.Scenes
 {
+    /// <summary>
+    /// Class defining mother class for scenes
+    /// </summary>
     public abstract class Scene
     {
         protected int x;
@@ -19,14 +22,26 @@ namespace Foxentold.Scenes
         protected List<GameItem> animatedDrawables = new List<GameItem>();
         protected List<Animation> animations = new List<Animation>();
 
+        /// <summary>
+        /// Getter for the coordinates of the scene
+        /// </summary>
         public (int, int) Coordinates { get { return (x, y); } }
 
+        /// <summary>
+        /// Initializes the common attributes of scenes
+        /// </summary>
+        /// <param name="x">X coordinate</param>
+        /// <param name="y">Y coordinate</param>
         public Scene(int x, int y)
         {
             this.x = x;
             this.y = y;
         }
 
+        /// <summary>
+        /// Draws the scene's drawables and animated
+        /// </summary>
+        /// <param name="gameTime">the game time</param>
         public void Draw(GameTime gameTime)
         {
             //Draw all drawables
@@ -40,9 +55,16 @@ namespace Foxentold.Scenes
             }
         }
 
+        /// <summary>
+        /// Abstract method that adds a layer of update specific to a scene class
+        /// </summary>
+        /// <param name="gameTime">game's time</param>
         protected abstract void AbstractedUpdate(GameTime gameTime);
 
-
+        /// <summary>
+        /// Updates the scene
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
             animatedDrawables.Clear();
@@ -55,9 +77,11 @@ namespace Foxentold.Scenes
                 }
                 else if (animation.TimesPlayed > 0)
                 {
-                    animatedDrawables.Add(animation.GetStopedFrame());
+                    //if the animation is done stays on the last frame as a simple dwble
+                    drawable.Add(animation.GetStopedFrame());
                 }
             }
+            //calls the abstract added update logic
             this.AbstractedUpdate(gameTime);
         }
     }

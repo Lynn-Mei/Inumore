@@ -36,7 +36,7 @@ namespace Foxentold.Scenes
         private void playAnimation()
         {
             //Play theme
-            MediaPlayer.Play(this.bgm);
+            //MediaPlayer.Play(this.bgm);
 
             this.animations.Clear();
             this.drawable.Clear();

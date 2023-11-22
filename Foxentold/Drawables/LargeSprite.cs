@@ -14,15 +14,14 @@ using System.Threading.Tasks;
 
 namespace Foxentold.Drawables
 {
-    public class LargeSprite : GameItem, IDrawable
+    /// <summary>
+    /// Gameitem representing large sprites
+    /// </summary>
+    public class LargeSprite : GameItem
     {
         private int drawOrder = 7;
         private bool visible = true;
         private Texture2D texture;
-        public LargeSprite(Scene parent, int x, int y, string ressourceName) : base(parent, x, y)
-        {
-            this.texture = StaticContentManager.Load<Texture2D>(ressourceName);
-        }
 
         public override int DrawOrder => drawOrder;
 
@@ -31,25 +30,24 @@ namespace Foxentold.Drawables
         public override event EventHandler<EventArgs> DrawOrderChanged;
         public override event EventHandler<EventArgs> VisibleChanged;
 
-        public void CenterXAxis()
+        /// <summary>
+        /// Initializrs a largeSprite game item
+        /// </summary>
+        /// <param name="parent">Reference to the parent of the sprite</param>
+        /// <param name="x">X coordinate</param>
+        /// <param name="y">Y coordinate</param>
+        /// <param name="ressourceName">Ressource name of the sprite</param>
+        public LargeSprite(Scene parent, int x, int y, string ressourceName) : base(parent, x, y)
         {
-            //Need to modify hardcoded game width
-            //First get the total margin 
-            int total_margin = 1280 - this.texture.Width;
-            //then split the margin in two to center the image
-            this.x = total_margin/2;
-            this.updateRelativePos();
+            this.texture = StaticContentManager.Load<Texture2D>(ressourceName);
         }
 
-        public void SetXtoCenter()
-        {
-            this.x = 1280 / 2;
-            this.updateRelativePos();
-        }
-
+        /// <summary>
+        /// Draws the item based on relative position
+        /// </summary>
+        /// <param name="gameTime">game's time</param>
         public override void Draw(GameTime gameTime)
         {
-            
             SpriteBatchManager.SpriteBatch.Draw(texture, new Vector2(this.relativeX, this.relativeY), Color.White);
         }
     }

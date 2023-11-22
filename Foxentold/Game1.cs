@@ -12,7 +12,6 @@ namespace Foxentold
         private SpriteBatch _spriteBatch;
         private Settings _settings;
         private Scene _scene;
-        private Scene _previousScene;
 
         public Game1()
         {
@@ -30,7 +29,6 @@ namespace Foxentold
             // TODO: Add your initialization logic here
             this._settings = new Settings(Enums.LanguageCode.EN);
             this._scene = new TitleScreen(0,0);
-            this._scene.Play();
             base.Initialize();
         }
 

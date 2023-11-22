@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Foxentold.Drawables
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public abstract class GameItem:IDrawable
     {
         protected Scene parent;
