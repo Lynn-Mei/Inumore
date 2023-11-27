@@ -31,7 +31,7 @@ namespace Foxentold.Scenes
 
         protected override void AbstractedUpdate(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

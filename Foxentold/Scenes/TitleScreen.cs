@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -93,6 +94,7 @@ namespace Foxentold.Scenes
             actions["Play"] = this.Play;
             actions["Settings"] = this.Settings;
             BitArrowBtnGroup group = new BitArrowBtnGroup(this, 600, 450, actions, Color.White, 35, 0 ,50);
+            group.switchFocus();
             this.drawable.Add(group);
         }
 
@@ -101,7 +103,7 @@ namespace Foxentold.Scenes
         /// </summary>
         public void Settings()
         {
-
+            SceneFactory.CreateSettingsScreen(0, 0);
         }
 
         /// <summary>

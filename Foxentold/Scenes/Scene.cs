@@ -67,6 +67,11 @@ namespace Foxentold.Scenes
         /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
+            foreach (GameItem gameItem in drawable)
+            {
+                if (gameItem.Focus)
+                    ((InputItem)gameItem).ManageInputs();
+            }
             animatedDrawables.Clear();
             //Update the currently playing animations
             foreach(Animation animation in animations)

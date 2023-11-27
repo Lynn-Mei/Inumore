@@ -28,7 +28,7 @@ namespace Foxentold
         {
             // TODO: Add your initialization logic here
             this._settings = new Settings(Enums.LanguageCode.EN);
-            this._scene = new TitleScreen(0,0);
+            SceneFactory.CreateTitleScreen(0, 0);
             base.Initialize();
         }
 
@@ -44,8 +44,9 @@ namespace Foxentold
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            KeyboardInputReceiver.currentKeyboardState = Keyboard.GetState();
             // TODO: Add your update logic here
-            this._scene.Update(gameTime);
+            SceneFactory.Scene.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -56,7 +57,7 @@ namespace Foxentold
 
             SpriteBatchManager.Begin();
 
-            this._scene.Draw(gameTime);
+            SceneFactory.Scene.Draw(gameTime);
 
             SpriteBatchManager.End();
             
