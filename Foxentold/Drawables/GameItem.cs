@@ -18,6 +18,9 @@ namespace Foxentold.Drawables
         protected int y=0;
         protected int relativeX = 0;
         protected int relativeY = 0;
+        protected bool focus = false;
+
+        public virtual bool Focus { get { return focus; } }
         public GameItem(Scene parent, int x, int y)
         {
             this.parent = parent;
@@ -63,6 +66,7 @@ namespace Foxentold.Drawables
             this.relativeX = this.parent.Coordinates.Item1 + this.x;
             this.relativeY = this.parent.Coordinates.Item2 + this.y;
         }
+
 
     }
 }
