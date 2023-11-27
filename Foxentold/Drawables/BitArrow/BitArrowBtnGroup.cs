@@ -1,4 +1,5 @@
-﻿using Foxentold.Scenes;
+﻿using Foxentold.Links;
+using Foxentold.Scenes;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -11,12 +12,12 @@ using Color = Microsoft.Xna.Framework.Color;
 
 namespace Foxentold.Drawables.BitArrow
 {
-    public class BitArrowBtnGroup : GameItem
+    public class BitArrowBtnGroup : InputItem
     {
         private List<BitArrowButton> bitArrowButtons = new List<BitArrowButton>();
         private Dictionary<string, Action> options = new Dictionary<string, Action>();
         private int cursor = 0;
-        private bool focus = false;
+        
         private Color color = Color.Black;
         private int size;
         private int inXMargin = 0;
@@ -28,6 +29,9 @@ namespace Foxentold.Drawables.BitArrow
 
         public override event EventHandler<EventArgs> DrawOrderChanged;
         public override event EventHandler<EventArgs> VisibleChanged;
+
+        
+
         public BitArrowBtnGroup(Scene parent, int x, int y, Dictionary<string, Action> options = null, 
             Color? color = null, int size = 15, int inXMargin = 0, int lineHeight = 25) : base(parent, x, y)
         {
@@ -39,11 +43,12 @@ namespace Foxentold.Drawables.BitArrow
             if (options != null)
                 this.options = options;
 
-            this.Initialize();
+            this.Update();
         }
 
-        public void Initialize()
+        public void Update()
         {
+            bitArrowButtons.Clear();
             int i = 0;
             foreach (string option in options.Keys)
             {
@@ -63,9 +68,38 @@ namespace Foxentold.Drawables.BitArrow
             }
         }
 
-        public void switchFocus()
+        public override void ManageInputs()
         {
-            focus = !focus;
+            if (KeyboardInputReceiver.IsKeyNewPressed(Microsoft.Xna.Framework.Input.Keys.Down))
+            {
+                this.cursor++;
+                if (cursor == options.Count)
+                    this.cursor = 0;
+                this.Update();
+            }
+                
+            if (KeyboardInputReceiver.IsKeyNewPressed(Microsoft.Xna.Framework.Input.Keys.Up))
+            {
+                this.cursor--;
+                if (cursor == -1)
+                    this.cursor = options.Count-1;
+                this.Update();
+            }
+            if (KeyboardInputReceiver.IsKeyNewPressed(Microsoft.Xna.Framework.Input.Keys.Enter))
+            {
+                this.execute();
+            }    
+        }
+
+        private void execute()
+        {
+            int i = 0;
+            foreach(BitArrowButton btn in bitArrowButtons)
+            {
+                if (i == this.cursor)
+                    btn.Select();
+                i++;
+            }
         }
 
     }
