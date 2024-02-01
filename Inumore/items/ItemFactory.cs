@@ -1,4 +1,5 @@
-﻿using Inumore.items.weapons;
+﻿using Inumore.items.constructors;
+using Inumore.items.weapons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,23 +10,16 @@ namespace Inumore.items
 {
     public class ItemFactory
     {
+        private readonly Dictionary<string, IConstructor> constructors;
+        public ItemFactory()
+        {
+            this.constructors = new Dictionary<string, IConstructor>();
+            this.constructors.Add("sword", new SwordConstructor());
+            this.constructors.Add("heal", new HealItemConstructor());
+        } 
         public Item generateItem(string category, string name, int quantity = 1, int level = 0)
         {
-            //To improve
-            Item item;
-            switch (category)
-            {
-                case "sword":
-                    item = new Sword(name);
-                    break;
-                case "heal":
-                    item = new HealItem("Fubuki Corn", level);
-                    break;
-                default:
-                    item = new Sword("Emiyako");
-                    break;
-            }
-            return item;
+            return constructors[category].Initialize(name, quantity, level);
         }
     }
 }

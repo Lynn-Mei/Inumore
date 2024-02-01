@@ -13,6 +13,11 @@ namespace Inumore.items.weapons
         public override string Category => "weapon";
         public override string Name { get; }
 
+        public Weapon(int level, int quantity) : base(quantity)
+        {
+            this.level = level;
+        }
+
         public override string toXML()
         {
             string node = "<" + Category + " type=\"" + Name + "\" level=\"" + level + "\"";

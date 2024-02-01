@@ -13,7 +13,7 @@ namespace Inumore.items.weapons
         private int damage = 5;
         public override string Name { get { return name; } }
 
-        public Sword(string name)
+        public Sword(int level, string name, int quantity):base(level, quantity)
         {
             this.name = name;
             this.damage = 5;

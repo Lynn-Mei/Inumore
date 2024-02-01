@@ -14,7 +14,7 @@ namespace Inumore.items
 
         public override string Name => name;
 
-        public HealItem(string name, int healing)
+        public HealItem(string name, int healing, int quantity): base(quantity)
         {
             this.name = name;
             this.healing = healing;

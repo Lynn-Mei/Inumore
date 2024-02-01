@@ -13,6 +13,11 @@ namespace Inumore.items
         public abstract string Category { get; }
         public abstract string Name { get; }
 
+        public Item(int quantity)
+        {
+            this.quantity = quantity;
+        }
+
         public virtual string toXML()
         {
             string node = "<" + Category + " type=\"" + Name + "\"";
