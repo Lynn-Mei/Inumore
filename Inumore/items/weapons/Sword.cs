@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Inumore.items.weapons
 {
-    public class Sword:Weapon
+    public class Sword:Weapon, IExportable
     {
         private string name;
         private int damage = 5;
@@ -17,6 +17,14 @@ namespace Inumore.items.weapons
         {
             this.name = name;
             this.damage = 5;
+        }
+
+        public override string toXML()
+        {
+            string node = "<heal name=\"" + name + "\" ";
+            node += "level=\"" + level + "\"";
+            node += "nb=\"" + quantity + "\"";
+            return node + " >";
         }
     }
 }

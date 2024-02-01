@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Inumore.items
 {
-    public class HealItem : Item
+    public class HealItem : Item, IExportable
     {
         private string name;
         private int healing = 5;
@@ -18,6 +18,14 @@ namespace Inumore.items
         {
             this.name = name;
             this.healing = healing;
+        }
+
+        public override string toXML()
+        {
+            string node = "<heal name=\"" + name + "\" ";
+            node += "heal=\"" + healing + "\"";
+            node += "nb=\"" + quantity + "\"";
+            return node + " >";
         }
     }
 }
