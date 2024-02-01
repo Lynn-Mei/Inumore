@@ -5,7 +5,9 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Foxentold", "Foxentold\Foxentold.csproj", "{9EC65ABC-29CA-4CAB-972D-F6B4DB461580}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inumore", "Inumore\Inumore.csproj", "{1EFC9CBB-197B-4A0D-BC48-CCD8B5019B8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inumore", "Inumore\Inumore.csproj", "{1EFC9CBB-197B-4A0D-BC48-CCD8B5019B8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestsInumore", "TestsInumore\TestsInumore.csproj", "{FB86F1E5-535C-47C4-9141-D02FBDD19338}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{1EFC9CBB-197B-4A0D-BC48-CCD8B5019B8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EFC9CBB-197B-4A0D-BC48-CCD8B5019B8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EFC9CBB-197B-4A0D-BC48-CCD8B5019B8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB86F1E5-535C-47C4-9141-D02FBDD19338}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB86F1E5-535C-47C4-9141-D02FBDD19338}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB86F1E5-535C-47C4-9141-D02FBDD19338}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB86F1E5-535C-47C4-9141-D02FBDD19338}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
